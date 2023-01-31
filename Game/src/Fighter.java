@@ -1,10 +1,10 @@
 public abstract class Fighter {
-    String name;
-    int power;
-    int dexterity;
-    int intuition;
-    int endurance;
-    int health;
+    protected String name;
+    protected int power;
+    protected int dexterity;
+    protected int intuition;
+    protected int endurance;
+    protected int health;
 
     public Fighter(String name, int power, int dexterity, int intuition, int endurance) {
         this.name = name;
