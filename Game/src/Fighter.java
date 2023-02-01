@@ -15,32 +15,28 @@ public abstract class Fighter {
         this.health = endurance * 6;
     }
 
-    public int attack () {
+    public int attack() {
         return power;
     }
 
     /*each dexterity point increases the chance to dodge by 10 percent. each opponent's dexterity point reduces this
     chance by 10 percent. The maximum chance to dodge is 10 percent. The same is true for a critical strike*/
-    public boolean dodgeTry (int opponentsDexterity){
+    public boolean dodgeTry(int opponentsDexterity) {
         int probability = dexterity - opponentsDexterity;
 
-        if (probability <= 0)
-            return false;
-        if (probability > 7)
-            probability = 7;
+        if (probability <= 0) return false;
+        if (probability > 7) probability = 7;
 
-        return (int)(Math.random() * 10) < probability;
+        return (int) (Math.random() * 10) < probability;
     }
 
-    public boolean criticalTry (int opponentsIntuition){
+    public boolean criticalTry(int opponentsIntuition) {
         int probability = opponentsIntuition - intuition;
 
-        if (probability <= 0)
-            return false;
-        if (probability > 7)
-            probability = 7;
+        if (probability <= 0) return false;
+        if (probability > 7) probability = 7;
 
-        return (int)(Math.random() * 10) < probability;
+        return (int) (Math.random() * 10) < probability;
     }
 
 
