@@ -31,7 +31,7 @@ public abstract class Fighter {
     }
 
     public boolean criticalTry(int opponentsIntuition) {
-        int probability = opponentsIntuition - intuition;
+        int probability = intuition - opponentsIntuition;
 
         if (probability <= 0) return false;
         if (probability > 7) probability = 7;
