@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Battle {
 
     public static Boolean startBattle(Fighter fitstFighter, Fighter secondFighter) {
@@ -7,6 +9,9 @@ public class Battle {
         do {
             secondFighterDead = !attack(fitstFighter, secondFighter);
             firstFighterDead = !attack(secondFighter, fitstFighter);
+            if (fitstFighter instanceof Hero) {
+                useNextAction((Hero) fitstFighter);
+            }
         } while (!firstFighterDead && !secondFighterDead);
 
 
@@ -15,6 +20,28 @@ public class Battle {
         } else {
             return !firstFighterDead;
         }
+    }
+
+    private static void useNextAction(Hero hero) {
+        System.out.println("Нажмите 1 для нанесения следуюзей атаки");
+        System.out.println("Нажмите 2, чтобы выпить пиво. У вас в наличии " + hero.getPotion() + " бутылок");
+
+        String userChoice = "";
+        Scanner scanner = new Scanner(System.in);
+        do {
+            userChoice = scanner.nextLine();
+            if (userChoice.equals("2")) {
+                if (hero.getPotion() == 0) {
+                    System.out.println("К сожалению у вас нет пива в наличии... придется продолжить бой трезвым. " +
+                            "Прими судьбу и продолжи бой");
+                } else {
+                    hero.usePotion();
+                    System.out.println("Теперь ваше здоровье равно " + hero.getHealth() + " единицам.");
+                }
+            } else if (!userChoice.equals("1")) {
+                System.out.println("Вы сделали неправильный выбор. Попробуйте снова");
+            }
+        } while (!userChoice.equals("1"));
     }
 
     private static boolean attack(Fighter attacker, Fighter defender) {

@@ -1,13 +1,33 @@
-public class Hero extends Fighter{
-    int money;
-    int experience;
-    int level;
+public class Hero extends Fighter {
+    private int money;
+    private int experience;
+    private int level;
+
+    public int getPotion() {
+        return potion;
+    }
+
+    public void usePotion (){
+        if (potion > 0){
+            potion--;
+            health = Math.min(health + 6, experience * 6);
+        }
+    }
+
+    public void addPotion(int potion) {
+        if (potion > 0) {
+            this.potion += potion;
+        }
+    }
+
+    int potion;
 
     public Hero(String name, int power, int dexterity, int intuition, int endurance) {
         super(name, power, dexterity, intuition, endurance);
         this.level = 1;
         this.money = 0;
         this.experience = 0;
+        this.potion = 0;
     }
 
 
