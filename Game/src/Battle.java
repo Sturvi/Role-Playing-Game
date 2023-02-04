@@ -1,28 +1,27 @@
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Battle {
 
     /*This method conducts a battle between a hero and monsters. Returns null if both characters are dead
     and a draw is fixed. Returns true if the first fighter won.*/
-    public static Boolean startBattle(Fighter fitstFighter, Fighter secondFighter) {
+    public static Optional<Boolean> startBattle(Fighter firstFighter, Fighter secondFighter) {
         boolean firstFighterDead;
         boolean secondFighterDead;
-
         do {
-            System.out.println("\nУ " + fitstFighter.getName() + " Осталось здоровья: " + fitstFighter.getHealth());
+            System.out.println("\nУ " + firstFighter.getName() + " Осталось здоровья: " + firstFighter.getHealth());
             System.out.println("У " + secondFighter.getName() + " Осталось здоровья: " + secondFighter.getHealth());
-            if (fitstFighter instanceof Hero) {
-                useNextAction((Hero) fitstFighter);
+            if (firstFighter instanceof Hero) {
+                useNextAction((Hero) firstFighter);
             }
-            secondFighterDead = attack(fitstFighter, secondFighter);
-            firstFighterDead = attack(secondFighter, fitstFighter);
+            secondFighterDead = attack(firstFighter, secondFighter);
+            firstFighterDead = attack(secondFighter, firstFighter);
         } while (!firstFighterDead && !secondFighterDead);
 
-
         if (firstFighterDead && secondFighterDead) {
-            return null;
+            return Optional.empty();
         } else {
-            return !firstFighterDead;
+            return Optional.of(!firstFighterDead);
         }
     }
 
