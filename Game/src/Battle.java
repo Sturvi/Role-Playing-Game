@@ -2,16 +2,20 @@ import java.util.Scanner;
 
 public class Battle {
 
+    /*This method conducts a battle between a hero and monsters. Returns null if both characters are dead
+    and a draw is fixed. Returns true if the first fighter won.*/
     public static Boolean startBattle(Fighter fitstFighter, Fighter secondFighter) {
-        boolean firstFighterDead = false;
-        boolean secondFighterDead = false;
+        boolean firstFighterDead;
+        boolean secondFighterDead;
 
         do {
-            secondFighterDead = !attack(fitstFighter, secondFighter);
-            firstFighterDead = !attack(secondFighter, fitstFighter);
+            System.out.println("\nУ " + fitstFighter.getName() + " Осталось здоровья: " + fitstFighter.getHealth());
+            System.out.println("У " + secondFighter.getName() + " Осталось здоровья: " + secondFighter.getHealth());
             if (fitstFighter instanceof Hero) {
                 useNextAction((Hero) fitstFighter);
             }
+            secondFighterDead = attack(fitstFighter, secondFighter);
+            firstFighterDead = attack(secondFighter, fitstFighter);
         } while (!firstFighterDead && !secondFighterDead);
 
 
@@ -26,7 +30,7 @@ public class Battle {
         System.out.println("Нажмите 1 для нанесения следуюзей атаки");
         System.out.println("Нажмите 2, чтобы выпить пиво. У вас в наличии " + hero.getPotion() + " бутылок");
 
-        String userChoice = "";
+        String userChoice;
         Scanner scanner = new Scanner(System.in);
         do {
             userChoice = scanner.nextLine();
@@ -44,12 +48,13 @@ public class Battle {
         } while (!userChoice.equals("1"));
     }
 
+    /*Если после атаки обороняющий умер, возвращает true*/
     private static boolean attack(Fighter attacker, Fighter defender) {
         System.out.println("\n" + attacker.getName() + " Атакует");
-        boolean critical = attacker.criticalTry(defender.intuition);
-        boolean dodge = defender.dodgeTry(attacker.dexterity);
+        boolean critical = attacker.criticalTry(defender.getIntuition());
+        boolean dodge = defender.dodgeTry(attacker.getDexterity());
         if (critical) {
-            System.out.println(attacker.getName() + "С разбегу наносит критические удар!");
+            System.out.println(attacker.getName() + " С разбегу наносит критические удар!");
         }
         if (dodge) {
             System.out.println("Но " + defender.getName() + " уворачивается!");
@@ -58,24 +63,21 @@ public class Battle {
         if (dodge) {
             return defender.takingDamage(0);
         } else if (critical) {
-            System.out.println("-" + (int) (attacker.attack() * 2.5));
-            System.out.println(defender.getHealth());
+            System.out.println("-" + (int) (attacker.getPower() * 2.5));
             System.out.println("У " +
                     defender.getName() +
                     " осталось " +
-                    (defender.getHealth() - (int) (attacker.attack() * 2.5)) +
+                    (defender.getHealth() - (int) (attacker.getPower() * 2.5)) +
                     " здоровья");
-            return defender.takingDamage((int) (attacker.attack() * 2.5));
+            return defender.takingDamage((int) (attacker.getPower() * 2.5));
         } else {
-            System.out.println("-" + attacker.attack());
-            System.out.println(defender.getHealth());
-
+            System.out.println("-" + attacker.getPower());
             System.out.println("У " +
                     defender.getName() +
                     " осталось " +
-                    (defender.getHealth() - attacker.attack()) +
+                    (defender.getHealth() - attacker.getPower()) +
                     " здоровья");
-            return defender.takingDamage(attacker.attack());
+            return defender.takingDamage(attacker.getPower());
         }
     }
 }
