@@ -1,3 +1,4 @@
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Game {
@@ -77,10 +78,10 @@ public class Game {
 
     private static void startNewBattle(Hero hero) {
         Monster monster = Monster.getRandomMonster(hero.getLevel());
-        Boolean heroWin = Battle.startBattle(hero, monster);
-        if (heroWin == null) {
+        Optional<Boolean> heroWin = Battle.startBattle(hero, monster);
+        if (heroWin.isEmpty()) {
             System.out.println("Ничья. Вы не смогли одолеть монстра! :-(");
-        } else if (heroWin) {
+        } else if (heroWin.get()) {
             int money = monster.getMoney();
             hero.setMoney(money);
             int experience = getRandomExperience(monster.getLevel());

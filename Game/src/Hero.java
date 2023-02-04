@@ -159,13 +159,13 @@ public class Hero extends Fighter {
     }
 
     public void printStats() {
-        System.out.println("\nВы потратили все очки усиления.\n" +
-                "Статы вашего героя:\n" +
+        System.out.println("\nСтаты вашего героя:\n" +
                 "Сила: " + (getPower()) +
                 "\nЛовкость:" + (getDexterity()) +
                 "\nИнтуиция: " + (getIntuition()) +
                 "\nВыносливость: " + (getEndurance()) +
                 "\nЗдоровье: " + (getHealth()) +
-                "\nЗолото: " + getMoney());
+                "\nЗолото: " + getMoney() +
+                "\nОпыт: " + getExperience());
     }
 }
